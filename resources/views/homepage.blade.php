@@ -2,7 +2,7 @@
 
 @section('content')
     <section id="billboard" class="py-5" style="background-color: #fac3ff">
-        <div class="container">
+        <div class="container" style="background-color: #fac3ff">
             <div class="row justify-content-center">
                 <h1 class="section-title text-center mt-4" data-aos="fade-up">
                     Selamat Datang di Stoffa
@@ -306,7 +306,7 @@
                                     </a>
                                     <div class="product-content">
                                         <h5 class="text-uppercase fs-5 mt-3">
-                                            <a href="</a>
+                                            <a href="">{{ $p->namaproduk }}</a>
                                         </h5>
                                         <a href="#" class="text-decoration-none" data-after="Add to cart">
                                             <span>Rp. {{ number_format($p->harga) }}</span>

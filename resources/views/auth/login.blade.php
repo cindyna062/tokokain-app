@@ -40,7 +40,7 @@
                         </div>
                         <a href="#" class="auth-link text-primary">Lupa Password?</a>
                     </div>
-                    <div class="text-center mt-4 font-weight-light"> Gapunya Akun? <a href="register.html"
+                    <div class="text-center mt-4 font-weight-light"> Gapunya Akun? <a href="/register"
                             class="text-primary">Buat la bang</a>
                     </div>
                 </div>

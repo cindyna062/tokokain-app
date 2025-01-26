@@ -23,7 +23,7 @@ class SesiController extends Controller
     //     }
     // }
     $produkbaru = produk::orderBy('created_at', 'desc')->take(4)->get();
-        return view('ecommerce.index', compact('produkbaru'));
+        return view('homepage', compact('produkbaru'));
     }
     public function indexlogin()
     {

@@ -33,7 +33,7 @@
     <!-- end plugin css -->
     <link href="{{ asset('assets/user/css/vendor.css') }}" rel="stylesheet" />
     <link href="{{ asset('assets/user/css/swiper-bundle.min.css') }}" rel="stylesheet" />
-
+    <link href="{{ asset('assets/vendors/mdi/css/materialdesignicons.min.css') }}" rel="stylesheet" />
 
 
     @stack('plugin-styles')
@@ -185,7 +185,7 @@
 
         {{-- @include('ecommerce.layouts.sidebar') --}}
 
-        <main>
+        <main class="py-5">
             @yield('content')
         </main>
 
@@ -237,6 +237,8 @@
     <!-- end common js -->
 
     @stack('custom-scripts')
+
+
 </body>
 
 </html>

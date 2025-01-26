@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\auth\SesiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
@@ -17,14 +18,14 @@ Route::get('/', function () {
 
 
 Route::get('/', [DashboardController::class, 'index']);
+Route::get('/search', [DashboardController::class, 'search'])->name('search');
+Route::get('/search-suggestions', [DashboardController::class, 'suggestions'])->name('search.suggestions');
 Route::middleware(['guest'])->group(function () {
-
-
-
-
 
     Route::get('/login', [SesiController::class, 'indexlogin'])->name('login');
     Route::post('/login', [SesiController::class, 'store']);
+    Route::get('/register', [AuthController::class, 'showRegistrationForm']);
+    Route::post('/register', [AuthController::class, 'register'])->name('register');
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -45,6 +46,7 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
 Route::middleware(['auth', 'roles:user'])->group(function () {
     //dashboard
     // Route::get('/', [DashboardController::class, 'index']);
+
     Route::get('/user/produk', [ProdukController::class, 'indexuser']);
     Route::get('/produkterbaru', [ProdukController::class, 'newproduk']);
     Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');

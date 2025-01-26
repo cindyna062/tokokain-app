@@ -64,57 +64,58 @@
             </div>
             @include('admin.layouts.footer')
         </div>
+    </div>
 
 
 
 
-        <!-- base js -->
-        <script src="{{ asset('assets/vendors/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- base js -->
+    <script src="{{ asset('assets/vendors/js/bootstrap.bundle.min.js') }}"></script>
 
-        <script src="{{ asset('assets/js/dashboard.js') }}"></script>
+    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
 
-        <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>
-        <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
-        <!-- end base js -->
+    <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/sweetalert2/sweetalert2.min.js') }}"></script>
+    <!-- end base js -->
 
-        <!-- plugin js -->
-        @stack('plugin-scripts')
-        <!-- end plugin js -->
-        <script>
-            // Sweet Alert untuk sukses
-            @if (session('success'))
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Sukses!',
-                    text: {!! json_encode(session('success')) !!}
-                });
-            @endif
+    <!-- plugin js -->
+    @stack('plugin-scripts')
+    <!-- end plugin js -->
+    <script>
+        // Sweet Alert untuk sukses
+        @if (session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: {!! json_encode(session('success')) !!}
+            });
+        @endif
 
-            // Sweet Alert untuk gagal
-            @if (session('error'))
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Gagal!',
-                    text: {!! json_encode(session('error')) !!}
-                });
-            @endif
-        </script>
-        <!-- common js -->
+        // Sweet Alert untuk gagal
+        @if (session('error'))
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: {!! json_encode(session('error')) !!}
+            });
+        @endif
+    </script>
+    <!-- common js -->
 
 
-        <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
-        <script src="{{ asset('assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
-        <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
-        <script src="{{ asset('assets/js/misc.js') }}"></script>
-        <script src="{{ asset('assets/js/settings.js') }}"></script>
-        <script src="{{ asset('assets/js/todolist.js') }}"></script>
-        <script src="{{ asset('assets/js/jquery.cookie.js') }}"></script>
-        <script src="{{ asset('assets/js/file-upload.js') }}"></script>
-        <script src="{{ asset('assets/js/typeahead.js') }}"></script>
-        <script src="{{ asset('assets/js/select2.js') }}"></script>
-        <!-- end common js -->
+    <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/typeahead.js/typeahead.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('assets/js/misc.js') }}"></script>
+    <script src="{{ asset('assets/js/settings.js') }}"></script>
+    <script src="{{ asset('assets/js/todolist.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery.cookie.js') }}"></script>
+    <script src="{{ asset('assets/js/file-upload.js') }}"></script>
+    <script src="{{ asset('assets/js/typeahead.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <!-- end common js -->
 
-        @stack('custom-scripts')
+    @stack('custom-scripts')
 </body>
 
 </html>
