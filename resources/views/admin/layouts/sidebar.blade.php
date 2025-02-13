@@ -19,9 +19,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/produk/tambahproduk') }}">Tambah Produk</a>
                     </li>
-                    {{-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="{{ url('/kategoriproduk') }}">Kategori Produk</a>
-                    </li> --}}
+                    </li>
                 </ul>
             </div>
         </li>

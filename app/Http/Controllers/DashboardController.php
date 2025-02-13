@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\kategoriproduk;
 use App\Models\produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,17 +25,18 @@ class DashboardController extends Controller
                     $cart = Cart::with('items.produk')->where('user_id', Auth::user()->id)->first();
                     $produkbaru = Produk::orderBy('created_at', 'desc')->take(4)->get();
                     $produk = Produk::all();
-                    return view('homepage', compact('produk', 'produkbaru', 'cart'));
+                    $kategoriproduks = kategoriproduk::orderBy('created_at', 'desc')->take(4)->get();
+                    return view('homepage', compact('produk', 'produkbaru', 'cart', 'kategoriproduks'));
                     break;
                 default:
                     return redirect('/')->with('error', 'Role tidak dikenali.');
             }
         } else {
             $produkbaru = produk::orderBy('created_at', 'desc')->take(4)->get();
-
+            $kategoriproduks = kategoriproduk::orderBy('created_at', 'desc')->take(4)->get();
 
             // Jika pengguna belum login (guest), tampilkan halaman umum
-            return view('homepage', compact('produkbaru'));
+            return view('homepage', compact('produkbaru', 'kategoriproduks'));
         }
     }
     public function search(Request $request)
@@ -46,8 +48,8 @@ class DashboardController extends Controller
                 $q->where('kategori_produk', 'LIKE', "%{$query}%"); // Sesuaikan 'nama' dengan field kategori Anda
             })
             ->get();
-
-        return view('search.results', compact('results', 'query'));
+            $cart = Cart::with('items.produk')->where('user_id', Auth::user()->id)->first();
+        return view('ecommerce.produk.result', compact('results', 'query', 'cart'));
     }
     public function suggestions(Request $request)
     {

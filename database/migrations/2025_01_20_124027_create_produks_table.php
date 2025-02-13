@@ -18,7 +18,7 @@ return new class extends Migration
             $table->longText('deskripsi');
             $table->integer('stok');
             $table->longText('gambarproduk');
-            $table->foreignId('kategori_id')->constrained('kategoriproduks');
+            $table->foreignId('kategori_id')->nullable()->constrained('kategoriproduks')->nullOnDelete();
             $table->timestamps();
         });
     }

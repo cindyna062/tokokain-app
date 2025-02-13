@@ -35,10 +35,7 @@ class ProdukController extends Controller
         return view('ecommerce.produk.index', compact('produks','kategoris' , 'cart'));
     }
 
-    public function indexkategori()
-    {
-        return view('admin.produk.dtkategoriproduk');
-    }
+
     public function formtambahproduk()
     {
         $kategori = DB::table('kategoriproduks')->select('id', 'kategori_produk')->get();
@@ -69,18 +66,7 @@ class ProdukController extends Controller
                 $data['gambarproduk'] = json_encode($imagePaths); // Store the image paths as JSON
             }
 
-            // If the category_id is a new category, we create it
-            if (is_string($data['kategori_id'])) {
-                // Check if category already exists
-                $kategori = DB::table('kategoriproduks')->where('kategori_produk', $data['kategori_id'])->first();
-                if (!$kategori) {
-                    // Insert new kategori if it doesn't exist
-                    $kategori = DB::table('kategoriproduks')->insertGetId([
-                        'kategori_produk' => $data['kategori_id']
-                    ]);
-                }
-                $data['kategori_id'] = $kategori;
-            }
+        
 
             // // Handle product image and other product data
             // if ($request->hasFile('gambarproduk')) {

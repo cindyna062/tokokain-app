@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cart_id')->index(); // Relasi ke tabel carts
-            $table->unsignedBigInteger('produk_id')->index(); // Relasi ke produk
+
             $table->integer('quantity');
             $table->timestamps();
-            $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade');
-            $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
+            $table->foreignId('cart_id')->nullable()->constrained('carts')->nullOnDelete();
+            $table->foreignId('produk_id')->nullable()->constrained('produks')->nullOnDelete();
+
         });
     }
 

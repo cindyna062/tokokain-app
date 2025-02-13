@@ -87,6 +87,9 @@
                             </a>
 
                             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="{{ route('orders.index') }}">
+                                    <i class="mdi mdi-cached me-2 text-success"></i> Order Saya
+                                </a>
                                 <a class="dropdown-item" href="#">
                                     <i class="mdi mdi-cached me-2 text-success"></i> Edit Password
                                 </a>

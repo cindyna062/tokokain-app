@@ -15,19 +15,40 @@ class UserSeeder extends Seeder
     {
         $data =
         [
-            // [
-            //     'name'      => 'Admin',
-            //     'username'  => 'Admin',
-            //     'email'     => 'admin@gmail.com',
-            //     'role'      => 'Admin',
-            //     'password'  => Hash::make('password')
-            // ],
             [
-                'name'      => 'user',
-                'username'  => 'user',
-                'email'     => 'user@gmail.com',
-                'role'      => 'user',
-                'password'  => Hash::make('password')
+                'name' => 'Admin Satu',
+                'username' => 'admin1',
+                'email' => 'admin1@example.com',
+                'password'  => Hash::make('password'),
+                'role' => 'admin',
+            ],
+            [
+                'name' => 'Admin Dua',
+                'username' => 'admin2',
+                'email' => 'admin2@example.com',
+                'password'  => Hash::make('password'),
+                'role' => 'admin',
+            ],
+            [
+                'name' => 'User Satu',
+                'username' => 'user1',
+                'email' => 'user1@example.com',
+                'password'  => Hash::make('password'),
+                'role' => 'user',
+            ],
+            [
+                'name' => 'User Dua',
+                'username' => 'user2',
+                'email' => 'user2@example.com',
+                'password'  => Hash::make('password'),
+                'role' => 'user',
+            ],
+            [
+                'name' => 'User Tiga',
+                'username' => 'user3',
+                'email' => 'user3@example.com',
+                'password'  => Hash::make('password'),
+                'role' => 'user',
             ],
         ];
         DB::table('users')->insert($data);

@@ -5,155 +5,46 @@
         <div class="container" style="background-color: #fac3ff">
             <div class="row justify-content-center">
                 <h1 class="section-title text-center mt-4" data-aos="fade-up">
-                    Selamat Datang di Stoffa
+                    Stoffa
                 </h1>
                 <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="300">
                     <p>
-                        Kain khas Indonesia yang terbuat dari serat alami dan sangat nyaman. Dapatkan produk terbaik kami di sini.
+                        Temukan berbagai kategori kain khas Indonesia yang terbuat dari serat alami dan nyaman digunakan.
                     </p>
                 </div>
             </div>
             <div class="row">
-                <div class="swiper main-swiper py-4 " data-aos="fade-up" data-aos-delay="600">
+                <div class="swiper main-swiper py-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="swiper-wrapper border-animation-left">
-                        <div class="swiper-slide">
-                            <div class="banner-item image-zoom-effect">
-                                <div class="image-holder">
-                                    <a href="#">
-                                        <img src="images/banner-image-6.jpg" alt="product" class="img-fluid" />
-                                    </a>
-                                </div>
-                                <div class="banner-content py-4">
-                                    <h5 class="element-title text-uppercase">
-                                        <a href="index.html" class="item-anchor">Soft leather jackets</a>
-                                    </h5>
-                                    <p>
-                                        Scelerisque duis aliquam qui lorem ipsum dolor amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                    <div class="btn-left">
-                                        <a href="#"
-                                            class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
-                                            Now</a>
+                        @foreach ($kategoriproduks as $kategori)
+                            <div class="swiper-slide">
+                                <div class="banner-item image-zoom-effect">
+                                    <div class="image-holder">
+                                        @php
+                                            $gambar = json_decode($kategori->gambar_kategori, true);
+                                            $gambarPath = is_array($gambar) ? $gambar[0] : $kategori->gambar_kategori;
+                                        @endphp
+                                        <a href="#">
+                                            <img src="{{ asset('storage/' . str_replace('gambar_kategori/', 'gambar_kategori/', $gambarPath)) }}"
+                                                alt="{{ $kategori->kategori_produk }}" class="img-fluid" />
+                                        </a>
+                                    </div>
+                                    <div class="banner-content py-4">
+                                        <h5 class="element-title text-uppercase">
+                                            <a href="#" class="item-anchor">{{ $kategori->kategori_produk }}</a>
+                                        </h5>
+                                        <p>
+                                            {{ $kategori->deskripsi }}
+                                        </p>
+                                        <div class="btn-left">
+                                            <a href="#"
+                                                class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Lihat
+                                                Produk</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="banner-item image-zoom-effect">
-                                <div class="image-holder">
-                                    <a href="#">
-                                        <img src="images/banner-image-1.jpg" alt="product" class="img-fluid" />
-                                    </a>
-                                </div>
-                                <div class="banner-content py-4">
-                                    <h5 class="element-title text-uppercase">
-                                        <a href="index.html" class="item-anchor">Soft leather jackets</a>
-                                    </h5>
-                                    <p>
-                                        Scelerisque duis aliquam qui lorem ipsum dolor amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                    <div class="btn-left">
-                                        <a href="#"
-                                            class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="banner-item image-zoom-effect">
-                                <div class="image-holder">
-                                    <a href="#">
-                                        <img src="images/banner-image-2.jpg" alt="product" class="img-fluid" />
-                                    </a>
-                                </div>
-                                <div class="banner-content py-4">
-                                    <h5 class="element-title text-uppercase">
-                                        <a href="index.html" class="item-anchor">Soft leather jackets</a>
-                                    </h5>
-                                    <p>
-                                        Scelerisque duis aliquam qui lorem ipsum dolor amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                    <div class="btn-left">
-                                        <a href="#"
-                                            class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="banner-item image-zoom-effect">
-                                <div class="image-holder">
-                                    <a href="#">
-                                        <img src="images/banner-image-3.jpg" alt="product" class="img-fluid" />
-                                    </a>
-                                </div>
-                                <div class="banner-content py-4">
-                                    <h5 class="element-title text-uppercase">
-                                        <a href="index.html" class="item-anchor">Soft leather jackets</a>
-                                    </h5>
-                                    <p>
-                                        Scelerisque duis aliquam qui lorem ipsum dolor amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                    <div class="btn-left">
-                                        <a href="#"
-                                            class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="banner-item image-zoom-effect">
-                                <div class="image-holder">
-                                    <a href="#">
-                                        <img src="images/banner-image-4.jpg" alt="product" class="img-fluid" />
-                                    </a>
-                                </div>
-                                <div class="banner-content py-4">
-                                    <h5 class="element-title text-uppercase">
-                                        <a href="index.html" class="item-anchor">Out crop sweater</a>
-                                    </h5>
-                                    <p>
-                                        Scelerisque duis aliquam qui lorem ipsum dolor amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                    <div class="btn-left">
-                                        <a href="#"
-                                            class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="banner-item image-zoom-effect">
-                                <div class="image-holder">
-                                    <a href="#">
-                                        <img src="images/banner-image-5.jpg" alt="product" class="img-fluid" />
-                                    </a>
-                                </div>
-                                <div class="banner-content py-4">
-                                    <h5 class="element-title text-uppercase">
-                                        <a href="index.html" class="item-anchor">Soft leather jackets</a>
-                                    </h5>
-                                    <p>
-                                        Scelerisque duis aliquam qui lorem ipsum dolor amet,
-                                        consectetur adipiscing elit.
-                                    </p>
-                                    <div class="btn-left">
-                                        <a href="#"
-                                            class="btn-link fs-6 text-uppercase item-anchor text-decoration-none">Discover
-                                            Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>
@@ -170,6 +61,7 @@
             </div>
         </div>
     </section>
+
     <section class="features py-5">
         <div class="container">
             <div class="row">
@@ -228,8 +120,8 @@
             </div>
         </div>
     </section>
-    <section class="categories overflow-hidden">
-        <div class="container" >
+    {{-- <section class="categories overflow-hidden">
+        <div class="container">
             <div class="open-up" data-aos="zoom-out">
                 <div class="row">
                     <div class="col-md-4">
@@ -277,7 +169,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
     <section id="new-arrival" class="new-arrival product-carousel py-5 position-relative overflow-hidden">
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3">
@@ -286,12 +178,12 @@
             </div>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
-                    @foreach($produkbaru as $p)
-                    @php
-                        // Decode JSON images and get the first image
-                        $images = json_decode($p->gambarproduk, true);
-                        $firstImage = $images[0] ?? 'default-image.jpg'; // Fallback to default image
-                    @endphp
+                    @foreach ($produkbaru as $p)
+                        @php
+                            // Decode JSON images and get the first image
+                            $images = json_decode($p->gambarproduk, true);
+                            $firstImage = $images[0] ?? 'default-image.jpg'; // Fallback to default image
+                        @endphp
                         <div class="swiper-slide">
                             <div class="product-item image-zoom-effect link-effect">
                                 <div class="image-holder position-relative">
@@ -332,7 +224,7 @@
         </div>
     </section>
 
-    <section class="collection position-relative py-5" style="background-color: #fac3ff">
+    {{-- <section class="collection position-relative py-5" style="background-color: #fac3ff">
         <div class="container">
             <div class="row">
                 <div class="title-xlarge text-uppercase txt-fx domino">
@@ -364,7 +256,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 @endsection
 
 @push('custom-scripts')

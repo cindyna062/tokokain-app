@@ -25,33 +25,46 @@ class CheckoutController extends Controller
     {
         $validated = $request->validate([
             'alamat' => 'required|string|max:255',
+            'jenis_pengiriman' => 'required|string',
+            'kurir' => 'nullable|string',
+            'jenis_pembayaran' => 'required|string',
         ]);
+
+        $biayaPengiriman = [
+            'reguler' => ['JNE' => 12000, 'JNT' => 11000, 'SICEPAT' => 10000],
+            'ekspress' => ['Gojek' => 20000, 'Grab' => 21000]
+        ];
 
         $cart = Cart::with('items.produk')->where('user_id', Auth::user()->id)->first();
 
-        // if (!$cart || $cart->items->isEmpty()) {
-        //     return redirect()->route('order.success')->withErrors(['message' => 'Keranjang Anda kosong!']);
-        // }
+        if (!$cart || $cart->items->isEmpty()) {
+            return redirect()->route('order.success')->withErrors(['message' => 'Keranjang Anda kosong!']);
+        }
+
+        // Perhitungan total
+        $totalProduk = $cart->items->sum(fn($item) => $item->produk->harga * $item->quantity);
+        $biayaPengirimanTotal = $biayaPengiriman[$validated['jenis_pengiriman']][$validated['kurir']] ?? 0;
+        $totalBayar = $totalProduk + $biayaPengirimanTotal;
 
         // Buat order baru
         $order = Order::create([
             'user_id' => Auth::user()->id,
             'alamat' => $validated['alamat'],
-            'total' => $cart->items->sum(fn($item) => $item->produk->harga * $item->quantity),
+            'jenis_pengiriman' => $validated['jenis_pengiriman'],
+            'kurir' => $validated['kurir'],
+            'jenis_pembayaran' => $validated['jenis_pembayaran'],
+            'total' => $totalBayar,
         ]);
 
-        // Salin item dari keranjang ke order_items
+        // Simpan item order
         foreach ($cart->items as $item) {
-            // Periksa stok produk
             if ($item->produk->stok < $item->quantity) {
-                return back()->withErrors(['message' => "Stok untuk {$item->produk->nama} tidak mencukupi."]);
+                return back()->withErrors(['message' => "Stok untuk {$item->produk->namaproduk} tidak mencukupi."]);
             }
 
-            // Kurangi stok produk
             $item->produk->stok -= $item->quantity;
             $item->produk->save();
 
-            // Tambahkan item ke order
             OrderItem::create([
                 'order_id' => $order->id,
                 'produk_id' => $item->produk_id,
@@ -66,6 +79,7 @@ class CheckoutController extends Controller
 
         return redirect()->route('order.success')->with('success', 'Pesanan berhasil dibuat!');
     }
+
     public function success()
     {
         $cart = Cart::with('items.produk')->where('user_id', Auth::user()->id)->first();

@@ -41,6 +41,7 @@
                                     <th>Nama Barang</th>
                                     <th>Harga</th>
                                     <th>Deskripsi</th>
+                                    <th>Kategori</th>
                                     <th>Stok</th>
                                     <th>Gambar Produk</th>
                                     <th>Aksi</th>
@@ -53,6 +54,7 @@
                                         <td>{{ $produk->namaproduk }}</td>
                                         <td>{{ $produk->harga }}</td>
                                         <td>{{ $produk->deskripsi }}</td>
+                                        <td>{{ $produk->kategori->kategori_produk }}</td>
                                         <td>{{ $produk->stok }}</td>
                                         <td>
                                             <!-- Tombol untuk membuka modal -->

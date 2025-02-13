@@ -5,7 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriProdukController;
 use App\Http\Controllers\KeranjangController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProdukController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -40,7 +42,10 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::get('/produk', [ProdukController::class, 'index']);
     Route::get('/produk/tambahproduk', [ProdukController::class, 'formtambahproduk']);
     Route::post('/produk/tambahproduk', [ProdukController::class, 'storeproduk'])->name('produk.store');
-    Route::get('/kategoriproduk', [ProdukController::class, 'indexkategori']);
+
+    Route::get('/kategoriproduk', [KategoriProdukController::class, 'index']);
+    Route::post('/kategoriproduk/tambah', [KategoriProdukController::class, 'store'])->name('kategori.store');
+
 });
 
 Route::middleware(['auth', 'roles:user'])->group(function () {
@@ -55,4 +60,5 @@ Route::middleware(['auth', 'roles:user'])->group(function () {
     Route::get('/checkout/detail', [CheckoutController::class, 'detail'])->name('checkout.detail');
     Route::post('/checkout/submit', [CheckoutController::class, 'submit'])->name('checkout.submit');
     Route::get('/order-success', [CheckoutController::class, 'success'])->name('order.success');
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 });
