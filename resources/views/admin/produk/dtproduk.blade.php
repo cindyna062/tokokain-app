@@ -3,6 +3,7 @@
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/datatables/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/datatables/datatables.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/vendors/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @push('style')
@@ -52,7 +53,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $produk->namaproduk }}</td>
-                                        <td>{{ $produk->harga }}</td>
+                                        <td>Rp. {{ number_format($produk->harga, 0, ',', '.') }}</td>
                                         <td>{{ $produk->deskripsi }}</td>
                                         <td>{{ $produk->kategori->kategori_produk }}</td>
                                         <td>{{ $produk->stok }}</td>
@@ -71,16 +72,23 @@
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <a class="dropdown-item" data-bs-toggle="modal"
-                                                            data-bs-target="#modaledit{{ $produk->id }}">
-                                                            Edit
+                                                            data-bs-target="#editProdukModal{{ $produk->id }}">
+                                                            <i class="mdi mdi-storefront-edit-outline me-2"></i> Edit
                                                         </a>
                                                     </li>
-                                                    {{-- <li>
-                                                    <a class="dropdown-item" href="#"
-                                                        onclick="confirmDelete({{ $penghuni->id }})">
-                                                        </i> Hapus
-                                                    </a>
-                                                </li> --}}
+                                                    <li>
+                                                        <form id="delete-form-{{ $produk->id }}"
+                                                            action="{{ route('produk.delete', $produk->id) }}"
+                                                            method="POST" style="display: none;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                        </form>
+
+                                                        <a class="dropdown-item text-danger" href="#"
+                                                            onclick="confirmDelete({{ $produk->id }})">
+                                                            <i class="mdi mdi-delete me-2"></i> Hapus
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -109,11 +117,75 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal untuk Edit Produk -->
+    @foreach ($produks as $p)
+        <div class="modal fade" id="editProdukModal{{ $p->id }}" aria-labelledby="editProdukModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content bg-white rounded shadow-sm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProdukModalLabel">Edit Produk</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('produk.update', $p->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="namaproduk">Nama Produk</label>
+                                <input type="text" class="form-control" name="namaproduk" value="{{ $p->namaproduk }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="deskripsi">Deskripsi</label>
+                                <input type="text" class="form-control" name="deskripsi" value="{{ $p->deskripsi }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="kategori_id">Kategori</label>
+                                <select id="category_select" name="kategori_id" class="form-control select2"
+                                    style="width: 100%">
+                                    @foreach ($kategori as $k)
+                                        <option value="{{ $k->id }}"
+                                            {{ $p->kategori_id == $k->id ? 'selected' : '' }}>{{ $k->kategori_produk }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="stok">Stok</label>
+                                <input type="number" class="form-control" name="stok" value="{{ $p->stok }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="harga">Harga</label>
+                                <input type="number" class="form-control" name="harga" id="harga"
+                                    placeholder="Harga" value="{{ ceil($p->harga) }}" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label for="gambarproduk">Gambar Produk</label>
+                                <input type="file" name="gambarproduk[]" multiple class="form-control">
+                                <div class="mt-2">
+                                    @foreach (json_decode($p->gambarproduk) as $img)
+                                        <img src="{{ asset('storage/' . $img) }}" alt="Gambar" class="img-fluid"
+                                            style="width: 100px; height: 100px; object-fit: cover; margin-right: 10px;">
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/datatables/datatables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables/datatables.js') }}"></script>
+    <script src="{{ asset('assets/vendors/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
@@ -126,6 +198,14 @@
             responsive: true,
 
             // Aktifkan responsif
+        });
+        $(document).on('shown.bs.modal', function(e) {
+            const modal = $(e.target);
+            $(e.target).find('.select2').select2({
+                dropdownParent: $(e.target),
+                width: '100%', // Ensures that the select2 input width is responsive
+                dropdownAutoWidth: true, // Adjusts the width of the dropdown based on the input width
+            });
         });
 
         // Function to show images in the carousel inside the modal
@@ -179,5 +259,22 @@
                 backdrop.remove();
             }
         });
+
+        function confirmDelete(id) {
+            Swal.fire({
+                title: "Yakin ingin menghapus?",
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, Hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('delete-form-' + id).submit();
+                }
+            });
+        }
     </script>
 @endpush

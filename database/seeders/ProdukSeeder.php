@@ -22,6 +22,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 50,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 1,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Satin Silk',
@@ -30,6 +32,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 30,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 2,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Linen Premium',
@@ -38,6 +42,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 40,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 3,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Wolfis',
@@ -46,6 +52,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 60,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 4,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Balotelli',
@@ -54,6 +62,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 45,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 5,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Sifon Motif',
@@ -62,6 +72,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 35,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 6,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Denim Tebal',
@@ -70,6 +82,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 25,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 7,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Spandek Super',
@@ -78,6 +92,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 55,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 8,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Organza',
@@ -86,6 +102,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 20,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 9,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
                 [
                     'namaproduk' => 'Kain Velvet Premium',
@@ -94,6 +112,8 @@ class ProdukSeeder extends Seeder
                     'stok' => 30,
                     'gambarproduk' => '["default.jpg"]',
                     'kategori_id' => 10,
+                    'created_at' => now(), // Pastikan ini ada
+                    'updated_at' => now()
                 ],
             ];
         DB::table('produks')->insert($data);

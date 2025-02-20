@@ -67,7 +67,7 @@
                                                     <li>
                                                         <a class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#modaledit{{ $k->id }}">
-                                                            Edit
+                                                            <i class="mdi mdi-square-edit-outline me-2"></i> Edit
                                                         </a>
                                                     </li>
                                                     {{-- <li>
@@ -90,7 +90,7 @@
     </div>
     <!-- Modal untuk Tambah Data -->
     <div class="modal fade" id="tambahdata" aria-labelledby="tambahdataLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content bg-white rounded shadow-sm"> <!-- Container putih dan ada shadow -->
                 <div class="modal-header border-bottom">
                     <h5 class="modal-title" id="modaleditLabel">Buat Kategori</h5>
@@ -135,7 +135,6 @@
     </div>
 
     <!-- Modal untuk menampilkan gambar -->
-    <!-- Modal untuk menampilkan gambar -->
     <div class="modal fade" id="kategoriimgModal" tabindex="-1" role="dialog" aria-labelledby="kategoriimgModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md">
@@ -150,6 +149,56 @@
             </div>
         </div>
     </div>
+
+    @foreach ($kategori as $k)
+        <div class="modal fade" id="modaledit{{ $k->id }}" aria-labelledby="modaleditLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content bg-white rounded shadow-sm">
+                    <div class="modal-header border-bottom">
+                        <h5 class="modal-title" id="modaleditLabel">Edit Kategori</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('kategori.update', $k->id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        <div class="modal-body">
+                            <div class="form-group mb-3">
+                                <label for="kategori_produk">Nama Kategori</label>
+                                <input type="text" class="form-control w-100" name="kategori_produk"
+                                    id="kategori_produk" value="{{ $k->kategori_produk }}">
+                                @error('kategori_produk')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="deskripsi">Deskripsi</label>
+                                <input type="text" class="form-control w-100" name="deskripsi" id="deskripsi"
+                                    value="{{ $k->deskripsi }}">
+                                @error('deskripsi')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label for="gambar_kategori">Gambar Kategori</label>
+                                <input type="file" name="gambar_kategori" id="gambar_kategori"
+                                    class="form-control w-100">
+                                <small class="text-muted">Kosongkan jika tidak ingin mengganti gambar.</small>
+                                @error('gambar_kategori')
+                                    <div class="text-danger small">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endforeach
 @endsection
 
 @push('plugin-scripts')
@@ -184,7 +233,8 @@
                 // Ensure gambar_kategori is an array
                 if (!Array.isArray(gambar_kategori)) {
                     gambar_kategori = [
-                    gambar_kategori]; // If it's not an array, make it one (assuming it's a single image)
+                        gambar_kategori
+                    ]; // If it's not an array, make it one (assuming it's a single image)
                 }
 
                 modalBody.innerHTML = ''; // Reset modal body

@@ -99,6 +99,11 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="harga">Harga</label>
+                        <input type="number" class="form-control" name="harga" id="harga" placeholder="Harga"
+                            value="{{ old('harga') }}">
+                    </div>
+                    <div class="form-group">
                         <input type="file" id="gambarproduk" name="gambarproduk[]" multiple accept="image/*"
                             onchange="previewImages()" class="file-upload-default">
                         <label for="gambarproduk" class="form-label">Upload Gambar Produk</label>

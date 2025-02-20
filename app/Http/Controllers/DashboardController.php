@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
                     // Ambil produk terbaru berdasarkan timestamp
                     $cart = Cart::with('items.produk')->where('user_id', Auth::user()->id)->first();
-                    $produkbaru = Produk::orderBy('created_at', 'desc')->take(4)->get();
+                    $produkbaru = Produk::orderBy('created_at', 'asc')->take(10)->get();
                     $produk = Produk::all();
                     $kategoriproduks = kategoriproduk::orderBy('created_at', 'desc')->take(4)->get();
                     return view('homepage', compact('produk', 'produkbaru', 'cart', 'kategoriproduks'));

@@ -60,12 +60,15 @@
                 <ul class="navbar-nav d-flex align-items-center">
                     <!-- Wishlist -->
                     <li class="nav-item">
-                        <a href="/user/produk" class="nav-link text-dark">
+                        <a href="/user/produk" class="nav-link text-dark" data-bs-toggle="tooltip"
+                            data-bs-placement="bottom" title="Produk">
                             <i class="mdi mdi-store-outline"></i>
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a href="#" class="nav-link text-dark">
+                        <a href="#" class="nav-link text-dark" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                            title="Wishlist">
                             <i class="mdi mdi-heart"></i>
                         </a>
                     </li>
@@ -74,7 +77,8 @@
                         <!-- Keranjang -->
                         <li class="nav-item me-3">
                             <a href="#" class="nav-link text-dark" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
+                                data-bs-target="#offcanvasCart" aria-controls="offcanvasCart" id="cartTooltip"
+                                title="Keranjang">
                                 <i class="mdi mdi-cart"></i>
                             </a>
                         </li>
@@ -91,7 +95,7 @@
                                     <i class="mdi mdi-cached me-2 text-success"></i> Order Saya
                                 </a>
                                 <a class="dropdown-item" href="#">
-                                    <i class="mdi mdi-cached me-2 text-success"></i> Edit Password
+                                    <i class="mdi mdi-account me-2 text-success"></i> Profile
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/logout">
@@ -144,6 +148,30 @@
 
 @push('custom-scripts')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inisialisasi semua tooltip yang menggunakan data-bs-toggle="tooltip"
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Tooltip untuk keranjang (manual karena tidak ada data-bs-toggle="tooltip" di HTML)
+            var cartTooltipEl = document.getElementById('cartTooltip');
+            var cartTooltip = new bootstrap.Tooltip(cartTooltipEl);
+
+            var offcanvasCart = document.getElementById('offcanvasCart');
+
+            offcanvasCart.addEventListener('show.bs.offcanvas', function() {
+                cartTooltip.hide(); // Hilangkan tooltip saat offcanvas dibuka
+            });
+
+            offcanvasCart.addEventListener('hidden.bs.offcanvas', function() {
+                cartTooltip.show(); // Tampilkan tooltip lagi setelah offcanvas ditutup
+            });
+        });
+
+
+
         $(document).ready(function() {
             $('#search-input').on('keyup', function() {
                 const query = $(this).val();

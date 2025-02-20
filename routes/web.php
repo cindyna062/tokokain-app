@@ -42,9 +42,12 @@ Route::middleware(['auth', 'roles:admin'])->group(function () {
     Route::get('/produk', [ProdukController::class, 'index']);
     Route::get('/produk/tambahproduk', [ProdukController::class, 'formtambahproduk']);
     Route::post('/produk/tambahproduk', [ProdukController::class, 'storeproduk'])->name('produk.store');
+    Route::put('/produk/updateproduk/{id}', [ProdukController::class, 'updateproduk'])->name('produk.update');
+    Route::delete('/produk/deleteproduk/{id}', [ProdukController::class, 'destroyproduk'])->name('produk.delete');
 
     Route::get('/kategoriproduk', [KategoriProdukController::class, 'index']);
     Route::post('/kategoriproduk/tambah', [KategoriProdukController::class, 'store'])->name('kategori.store');
+    Route::put('/kategoriproduk/update/{id}', [KategoriProdukController::class, 'update'])->name('kategori.update');
 
 });
 

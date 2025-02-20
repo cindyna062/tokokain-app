@@ -28956,12 +28956,13 @@ dl li {
 
 /* Sidebar */
 .sidebar {
+    position: fixed;
     min-height: calc(100vh - 70px);
     background: #ffffff;
     font-family: "ubuntu-regular", sans-serif;
     padding: 0;
     width: 260px;
-    z-index: 11;
+    z-index: 1000;
     transition: width 0.25s ease, background 0.25s ease;
     -webkit-transition: width 0.25s ease, background 0.25s ease;
     -moz-transition: width 0.25s ease, background 0.25s ease;
@@ -29545,6 +29546,7 @@ dl li {
     }
     .sidebar-icon-only .main-panel {
         width: calc(100% - 70px);
+        margin-left: 70px;
     }
 }
 
@@ -29672,6 +29674,7 @@ dl li {
     transition: width 0.25s ease, margin 0.25s ease;
     width: calc(100% - 260px);
     min-height: calc(100vh - 70px);
+    margin-left: 260px; /* Tambahkan ini */
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;

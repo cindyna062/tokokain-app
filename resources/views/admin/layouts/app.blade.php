@@ -53,9 +53,10 @@
 
     <script src="{{ asset('assets/js/spinner.js') }}"></script>
     @include('admin.layouts.header')
-    <div class="container-fluid page-body-wrapper" id="app">
 
+    <div class="container-fluid page-body-wrapper" id="app">
         @include('admin.layouts.sidebar')
+
 
         <div class="main-panel">
 
@@ -64,6 +65,7 @@
             </div>
             @include('admin.layouts.footer')
         </div>
+
     </div>
 
 

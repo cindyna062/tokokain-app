@@ -52,27 +52,48 @@ class KategoriProdukController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', 'Produk Gagal Ditambahkan' . $e->getMessage());
         }
-
     }
 
-    // Update kategori berdasarkan ID
     public function update(Request $request, $id)
     {
-        $kategori = kategoriproduk::find($id);
-        if (!$kategori) {
-            return response()->json(['message' => 'Kategori tidak ditemukan'], 404);
+        try {
+            DB::beginTransaction();
+
+            $request->validate([
+                'kategori_produk' => 'required|string|max:255',
+                'gambar_kategori' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'deskripsi' => 'nullable|string',
+            ]);
+
+            // Temukan kategori berdasarkan ID
+            $kategori = kategoriproduk::findOrFail($id);
+
+            // Menangani upload gambar jika ada
+            if ($request->hasFile('gambar_kategori')) {
+                // Hapus gambar lama jika ada
+                if ($kategori->gambar_kategori) {
+                    Storage::disk('public')->delete(json_decode($kategori->gambar_kategori));
+                }
+                // Simpan gambar baru
+                $gambarPath = $request->file('gambar_kategori')->store('gambar_kategori', 'public');
+                $kategori->gambar_kategori = json_encode($gambarPath);
+            }
+
+            // Update data kategori
+            $kategori->update([
+                'kategori_produk' => $request->kategori_produk,
+                'deskripsi' => $request->deskripsi,
+            ]);
+
+            DB::commit();
+
+            return redirect()->back()->with('success', 'Kategori Berhasil Diperbarui');
+        } catch (Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Kategori Gagal Diperbarui: ' . $e->getMessage());
         }
-
-        $request->validate([
-            'kategori_produk' => 'sometimes|string|max:255',
-            'gambar_kategori' => 'nullable|string',
-            'deskripsi' => 'nullable|string',
-        ]);
-
-        $kategori->update($request->all());
-
-        return response()->json(['message' => 'Kategori berhasil diperbarui', 'data' => $kategori]);
     }
+
 
     // Hapus kategori berdasarkan ID
     public function destroy($id)
